@@ -12,6 +12,7 @@ rl.on('line', (line) => {
             console.log('you entered the add command');
             break;
         case 'exit':
+        case 'quit':
             console.log();
             rl.close();
             break;
