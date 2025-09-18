@@ -9,8 +9,22 @@ const rl = createInterface({
 rl.setPrompt('Enter your command: ');
 rl.prompt();
 
+// to-do list item definition:
+interface Task {
+    name: string;
+    isDone: boolean;
+}
+class TaskItem implements Task {
+    name: string;
+    isDone: boolean = false; 
+    constructor(name: string) {
+        this.name = name;
+    }
+}
+
+
 // the to-do list:
-const toDoList: string[] = [];
+const toDoList: TaskItem[] = [];
 
 rl.on('line', (line) => {
     // trim whitespace
@@ -22,8 +36,29 @@ rl.on('line', (line) => {
         case 'add':
             console.log('you entered the add command');
             const item = operands.join(' '); // join item if it had spaces
-            toDoList.push(item);
+            toDoList.push(new TaskItem(item));
             console.log(`Added "${item}" to the list.`);
+            break;
+        case 'done':
+        case 'mark':
+        case 'check':
+            let index: number = parseInt(operands[0] || "", 10);
+            if (typeof index === 'undefined' || index < 0 || index >= toDoList.length) {
+                // invalid input - print message
+                console.log(`invalid input - number must be in the range 0-${toDoList.length - 1}`);
+                break;
+            }
+            else {
+                const listItem = toDoList[index]
+                if (listItem) {
+                    // valid input - update list item
+                    console.log('updating list item');
+                    listItem.isDone = true;
+                }
+                else {
+                    console.log('List item not found');
+                }
+            }
             break;
         case 'exit':
         case 'quit':
@@ -40,7 +75,7 @@ rl.on('line', (line) => {
     // print the list before closing:
     console.log('To Do List:')
     for (const item of toDoList) {
-        console.log(`[ ] - ${item}`)
+        console.log(`[${(item.isDone ? "X" : " ")}] - ${item.name}`)
     }
     exit(0);
 })
