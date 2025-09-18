@@ -6,10 +6,19 @@ const rl = createInterface({
 });
 rl.setPrompt('Enter your command: ');
 rl.prompt();
+// the to-do list:
+const toDoList = [];
 rl.on('line', (line) => {
-    switch (line.trim()) {
+    // trim whitespace
+    const input = line.trim();
+    // split input into command and argument
+    const [command, ...operands] = input.split(' ');
+    switch (command?.toLowerCase()) {
         case 'add':
             console.log('you entered the add command');
+            const item = operands.join(' '); // join item if it had spaces
+            toDoList.push(item);
+            console.log(`Added "${item}" to the list.`);
             break;
         case 'exit':
         case 'quit':
@@ -23,6 +32,11 @@ rl.on('line', (line) => {
     rl.prompt();
 }).on('close', () => {
     console.log('Closing...');
+    // print the list before closing:
+    console.log('To Do List:');
+    for (const item of toDoList) {
+        console.log(`[ ] - ${item}`);
+    }
     exit(0);
 });
 //# sourceMappingURL=index.js.map
