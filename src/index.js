@@ -11,10 +11,17 @@ rl.on('line', (line) => {
         case 'add':
             console.log('you entered the add command');
             break;
+        case 'exit':
+            console.log();
+            rl.close();
+            break;
         default:
             console.log('Invalid command');
             break;
     }
     rl.prompt();
+}).on('close', () => {
+    console.log('Closing...');
+    exit(0);
 });
 //# sourceMappingURL=index.js.map
