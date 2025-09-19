@@ -6,6 +6,7 @@ const rl = createInterface({
 });
 rl.setPrompt('Enter your command: ');
 rl.prompt();
+// to-do list item definition:
 class TaskItem {
     name;
     isDone = false;
