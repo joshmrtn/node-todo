@@ -15,6 +15,15 @@ class TaskItem {
 }
 // the to-do list:
 const toDoList = [];
+// to-do list print function
+function printTaskList(sourceList) {
+    console.log("----------           To-do list:           ---------");
+    for (let i = 0; i < sourceList.length; i++) {
+        const listItem = sourceList[i];
+        console.log(`(${i}): [${(listItem?.isDone ? "X" : " ")}] - ${listItem?.name}`);
+    }
+    console.log("----------------------------------------------------");
+}
 rl.on('line', (line) => {
     // trim whitespace
     const input = line.trim();
@@ -48,6 +57,10 @@ rl.on('line', (line) => {
                 }
             }
             break;
+        case 'list':
+        case 'print':
+            printTaskList(toDoList);
+            break;
         case 'exit':
         case 'quit':
             console.log();
@@ -61,10 +74,7 @@ rl.on('line', (line) => {
 }).on('close', () => {
     console.log('Closing...');
     // print the list before closing:
-    console.log('To Do List:');
-    for (const item of toDoList) {
-        console.log(`[${(item.isDone ? "X" : " ")}] - ${item.name}`);
-    }
+    printTaskList(toDoList);
     exit(0);
 });
 //# sourceMappingURL=index.js.map
