@@ -1,6 +1,6 @@
 import { createInterface } from 'node:readline';
 import { exit, stdin, stdout } from 'node:process';
-import type { Task } from './Task.js'
+import { TaskItem } from './TaskItem.js'
 
 const rl = createInterface({
     input: stdin,
@@ -10,14 +10,6 @@ const rl = createInterface({
 rl.setPrompt('Enter your command: ');
 rl.prompt();
 
-// to-do list item definition:
-class TaskItem implements Task {
-    name: string;
-    isDone: boolean = false; 
-    constructor(name: string) {
-        this.name = name;
-    }
-}
 
 
 // the to-do list:

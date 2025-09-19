@@ -1,19 +1,12 @@
 import { createInterface } from 'node:readline';
 import { exit, stdin, stdout } from 'node:process';
+import { TaskItem } from './TaskItem.js';
 const rl = createInterface({
     input: stdin,
     output: stdout
 });
 rl.setPrompt('Enter your command: ');
 rl.prompt();
-// to-do list item definition:
-class TaskItem {
-    name;
-    isDone = false;
-    constructor(name) {
-        this.name = name;
-    }
-}
 // the to-do list:
 const toDoList = [];
 // to-do list print function
